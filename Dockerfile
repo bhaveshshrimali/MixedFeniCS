@@ -17,6 +17,8 @@ RUN apt-get update \
     locales \
     fonts-liberation \
     run-one \
+    wget \
+    curl
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
@@ -34,6 +36,8 @@ ENV CONDA_DIR=/opt/conda \
 ENV PATH=$CONDA_DIR/bin:$PATH \
     HOME=/home/$NB_USER
 
+# Download the docker-stacks fix permissions
+RUN wget "https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook/fix-permissions"
 # Copy a script that we will use to correct permissions after running certain commands
 COPY fix-permissions /usr/local/bin/fix-permissions
 RUN chmod a+rx /usr/local/bin/fix-permissions
