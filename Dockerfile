@@ -2,7 +2,7 @@ FROM ceciledc/fenics_mixed_dimensional:latest
 ENV HOME=/tmp
 
 ARG NB_USER="jovyan"
-ARG NB_UID="1000"
+ARG NB_UID="9999"
 ARG NB_GID="100"
 
 USER root
