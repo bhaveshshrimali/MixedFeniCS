@@ -39,7 +39,7 @@ ENV PATH=$CONDA_DIR/bin:$PATH \
 
 # Download the docker-stacks fix permissions
 RUN git clone "https://github.com/jupyter/docker-stacks.git" && \ 
-    cd /docker-stacks/base-notebook/
+    cd docker-stacks/base-notebook/
 # Copy a script that we will use to correct permissions after running certain commands
 COPY fix-permissions /usr/local/bin/fix-permissions
 RUN chmod a+rx /usr/local/bin/fix-permissions
@@ -124,8 +124,8 @@ ENTRYPOINT ["tini", "-g", "--"]
 CMD ["start-notebook.sh"]
 
 # Copy local files as late as possible to avoid cache busting
-COPY docker-stacks/base-notebook/start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
-COPY docker-stacks/base-notebook/jupyter_notebook_config.py /etc/jupyter/
+COPY start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
+COPY jupyter_notebook_config.py /etc/jupyter/
 
 # Fix permissions on /etc/jupyter as root
 USER root
