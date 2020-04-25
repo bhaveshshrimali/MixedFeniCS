@@ -38,9 +38,10 @@ ENV PATH=$CONDA_DIR/bin:$PATH \
     HOME=/home/$NB_USER
 
 # Download the docker-stacks fix permissions
-RUN git clone "https://github.com/jupyter/docker-stacks.git"
+RUN git clone "https://github.com/jupyter/docker-stacks.git" && \ 
+    cd docker-stacks/base-notebook/
 # Copy a script that we will use to correct permissions after running certain commands
-COPY docker-stacks/base-notebook/fix-permissions /usr/local/bin/fix-permissions
+COPY fix-permissions /usr/local/bin/fix-permissions
 RUN chmod a+rx /usr/local/bin/fix-permissions
 
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER
