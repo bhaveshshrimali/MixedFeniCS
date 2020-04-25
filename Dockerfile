@@ -39,7 +39,7 @@ ENV PATH=$CONDA_DIR/bin:$PATH \
 
 # Download the docker-stacks fix permissions
 RUN git clone "https://github.com/jupyter/docker-stacks.git" && \ 
-    cd docker-stacks/base-notebook/
+    cd /docker-stacks/base-notebook/
 # Copy a script that we will use to correct permissions after running certain commands
 COPY fix-permissions /usr/local/bin/fix-permissions
 RUN chmod a+rx /usr/local/bin/fix-permissions
