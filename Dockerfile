@@ -2,8 +2,8 @@ FROM ceciledc/fenics_mixed_dimensional:latest
 ENV HOME=/tmp
 
 ARG NB_USER="jovyan"
-ARG NB_UID="1000"
-ARG NB_GID="100"
+ARG NB_UID="1500"
+ARG NB_GID="222"
 
 USER root
 
@@ -29,8 +29,8 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
 ENV CONDA_DIR=/opt/conda \
     SHELL=/bin/bash \
     NB_USER=jovyan \
-    NB_UID=1000 \
-    NB_GID=100 \
+    NB_UID=1500 \
+    NB_GID=222 \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8
@@ -44,14 +44,14 @@ RUN chmod a+rx /usr/local/bin/fix-permissions
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER
 RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc
 
-# Create NB_USER wtih name jovyan user with UID=1000 and in the 'users' group
+# Create NB_USER wtih name jovyan user with UID=1500 and in the 'users' group
 # and make sure these dirs are writable by the `users` group.
 RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
     sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
-    useradd -m -s /bin/bash -N -u 1000 jovyan && \
+    useradd -m -s /bin/bash -N -u 1500 jovyan && \
     mkdir -p $CONDA_DIR && \
-    chown jovyan:100 $CONDA_DIR && \
+    chown jovyan:222 $CONDA_DIR && \
     chmod g+w /etc/passwd && \
     fix-permissions $HOME && \
     fix-permissions $CONDA_DIR
