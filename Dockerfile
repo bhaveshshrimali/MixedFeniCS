@@ -56,14 +56,14 @@ RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     fix-permissions $HOME && \
     fix-permissions $CONDA_DIR
 
-USER $NB_UID
+USER jovyan
 WORKDIR $HOME
 ARG PYTHON_VERSION=default
-
+# USER root
 # Setup work directory for backward-compatibility
-RUN mkdir -p /home/jovyan/work && \
+RUN sudo mkdir -p /home/jovyan/work && \
     fix-permissions /home/jovyan
-
+# USER jovyan
 # Install conda as jovyan and check the md5 sum provided on the download site
 ENV MINICONDA_VERSION=4.8.2 \
     MINICONDA_MD5=87e77f097f6ebb5127c77662dfc3165e \
