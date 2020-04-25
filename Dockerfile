@@ -2,8 +2,8 @@ FROM ceciledc/fenics_mixed_dimensional:latest
 ENV HOME=/tmp
 
 ARG NB_USER="jovyan"
-ARG NB_UID="400"
-ARG NB_GID="100"
+ARG NB_UID="1500"
+ARG NB_GID="150"
 
 USER root
 
@@ -46,7 +46,10 @@ RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashr
 
 # Create NB_USER wtih name jovyan user with UID=1000 and in the 'users' group
 # and make sure these dirs are writable by the `users` group.
-RUN useradd -m -s /bin/bash -u $NB_UID $NB_USER && \
+RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
+    sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
+    sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
+    useradd -m -s /bin/bash -u 1500 jovyan && \
     mkdir -p $CONDA_DIR && \
     chown $NB_USER:$NB_GID $CONDA_DIR && \
     chmod g+w /etc/passwd && \
