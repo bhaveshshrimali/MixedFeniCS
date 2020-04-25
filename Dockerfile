@@ -1,5 +1,4 @@
 FROM ceciledc/fenics_mixed_dimensional:latest
-RUN pip3 install --no-cache notebook
 ENV HOME=/tmp
 
 ARG NB_USER="jovyan"
