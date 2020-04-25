@@ -18,7 +18,7 @@ RUN apt-get update \
     fonts-liberation \
     run-one \
     wget \
-    curl
+    curl \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
