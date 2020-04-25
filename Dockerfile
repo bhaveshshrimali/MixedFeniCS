@@ -19,6 +19,7 @@ RUN apt-get update \
     run-one \
     wget \
     curl \
+    git \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
@@ -37,9 +38,9 @@ ENV PATH=$CONDA_DIR/bin:$PATH \
     HOME=/home/$NB_USER
 
 # Download the docker-stacks fix permissions
-RUN wget "https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook/fix-permissions"
+RUN git clone "https://github.com/jupyter/docker-stacks.git"
 # Copy a script that we will use to correct permissions after running certain commands
-COPY fix-permissions /usr/local/bin/fix-permissions
+COPY docker-stacks/base-notebook/fix-permissions /usr/local/bin/fix-permissions
 RUN chmod a+rx /usr/local/bin/fix-permissions
 
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER
@@ -122,8 +123,8 @@ ENTRYPOINT ["tini", "-g", "--"]
 CMD ["start-notebook.sh"]
 
 # Copy local files as late as possible to avoid cache busting
-COPY start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
-COPY jupyter_notebook_config.py /etc/jupyter/
+COPY docker-stacks/base-notebook/start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
+COPY docker-stacks/base-notebook/jupyter_notebook_config.py /etc/jupyter/
 
 # Fix permissions on /etc/jupyter as root
 USER root
