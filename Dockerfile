@@ -61,7 +61,7 @@ WORKDIR $HOME
 ARG PYTHON_VERSION=default
 # USER root
 # Setup work directory for backward-compatibility
-RUN sudo mkdir -p /home/jovyan/work && \
+RUN mkdir -p /home/jovyan/work && \
     fix-permissions /home/jovyan
 # USER jovyan
 # Install conda as jovyan and check the md5 sum provided on the download site
