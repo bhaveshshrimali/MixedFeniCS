@@ -53,6 +53,7 @@ RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     mkdir -p $CONDA_DIR && \
     chown jovyan:222 $CONDA_DIR && \
     chmod g+w /etc/passwd && \
+    chmod -R 777 $CONDA_DIR && \
     fix-permissions $HOME && \
     fix-permissions $CONDA_DIR
 
