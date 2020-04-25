@@ -2,8 +2,8 @@ FROM ceciledc/fenics_mixed_dimensional:latest
 ENV HOME=/tmp
 
 ARG NB_USER="jovyan"
-ARG NB_UID="1500"
-ARG NB_GID="150"
+ARG NB_UID="1000"
+ARG NB_GID="100"
 
 USER root
 
@@ -29,8 +29,8 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
 ENV CONDA_DIR=/opt/conda \
     SHELL=/bin/bash \
     NB_USER=jovyan \
-    NB_UID=1500 \
-    NB_GID=150 \
+    NB_UID=1000 \
+    NB_GID=100 \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8
@@ -49,9 +49,9 @@ RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashr
 RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
     sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
-    useradd -m -s /bin/bash -N -u 1500 jovyan && \
+    useradd -m -s /bin/bash -N -u 1000 jovyan && \
     mkdir -p $CONDA_DIR && \
-    chown jovyan:150 $CONDA_DIR && \
+    chown jovyan:100 $CONDA_DIR && \
     chmod g+w /etc/passwd && \
     fix-permissions $HOME && \
     fix-permissions $CONDA_DIR
